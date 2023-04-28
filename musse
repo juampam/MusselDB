@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# DATABASE ON SHELL
+
+ent=$1
+name=$2
+case $ent in
+	"database")
+		mkdir $name
+		echo $name >> .databases
+		cd $name && touch $name.index
+	;;
+	"table")
+		path=$(cat .use)
+		touch $path/$name
+	;;
+	"use")
+		dataname=$(ls $name)
+		if [ "$name.index" == "$dataname" ];then
+			echo $name selected
+			echo $name > .use
+		else
+			echo \"$name\" is not a database
+		fi
+	;;
+esac
